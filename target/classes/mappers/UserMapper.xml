@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="store.mapper.UserMapper">
+<!-- 通过子节点配置与抽象方法的映射关系 -->
+
+<!-- 增加用户数据 -->
+<insert id="insert" parameterType="store.bean.User" useGeneratedKeys="true" keyProperty="id">
+INSERT INTO t_user
+(username,password,phone,email,gender,created_user,created_time,modified_user,modified_time)
+VALUES
+(#{username},#{password},#{phone},#{email},#{gender},#{createdUser},#{createdTime},#{modifiedUser},#{modifiedTime})
+</insert>
+<!-- 根据用户名查询用户信息 -->
+<select id="findUserByUsername" resultType="store.bean.User">
+SELECT username,password,phone,email,gender,
+created_user AS createdUser,
+created_time AS createdTime,
+modified_user AS modifiedUser,
+modified_time AS modifiedTime
+FROM t_user 
+WHERE username=#{username};
+</select>
+
+<!-- 查询邮箱是否被占用 -->
+<select id="getRecordCountByEmail" resultType="java.lang.Integer">
+SELECT COUNT(id) 
+FROM t_user 
+WHERE
+ email=#{email};
+</select>
+
+<!-- 查询手机号是否被占用 -->
+<select id="getRecordCountByPhone" resultType="java.lang.Integer">
+SELECT COUNT(id) 
+FROM t_user 
+WHERE
+ phone=#{phone};
+</select>
+
+</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
