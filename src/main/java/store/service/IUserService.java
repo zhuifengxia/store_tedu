@@ -42,4 +42,12 @@ public interface IUserService {
 	 * @return
 	 */
 	boolean checkUsernameExists(String username);
+
+	/**
+	 * 用户登录
+	 * 
+	 * @param username
+	 * @param password
+	 */
+	User login(String username, String password);
 }

@@ -77,12 +77,12 @@ input {
 }
 
 #top_input {
-    margin-left: 113px;
+    margin-left: 80px;
     position: relative;
 }
 
 #top_input #input {
-    width: 409px;
+    width: 350px;
     height: 36px;
     padding: 10px;
     outline:none;

@@ -5,7 +5,9 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import store.bean.User;
+import store.ex.PasswordNotMatchException;
 import store.ex.UsernameAlreadyExistsException;
+import store.ex.UsernameNotFoundException;
 import store.mapper.UserMapper;
 
 @Service("userService")
@@ -54,5 +56,24 @@ public class UserServiceImpl implements IUserService {
 	 */
 	public boolean checkUsernameExists(String username) {
 		return findUserByUsername(username) != null;
+	}
+
+	/**
+	 * 用户登录
+	 */
+	public User login(String username, String password) {
+		User user = findUserByUsername(username);
+		if (user == null) {
+			// 用户名不对
+			throw new UsernameNotFoundException("用户名错误");
+		} else {
+			if (!password.equals(user.getPassword())) {
+				// 密码错误
+				throw new PasswordNotMatchException("密码错误");
+			} else {
+				// 登录成功
+				return user;
+			}
+		}
 	}
 }
