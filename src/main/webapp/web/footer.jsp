@@ -77,4 +77,15 @@
 <script src="../jquery/jquery.cookie.js"></script>
 <script src="../js/index.js"></script>
 <script src="../js/slide.js"></script>
+<script src="../js/index.js"></script>
+<script src="../js/jquery.page.js"></script>
+<script src="../js/orders.js"></script>
+<script src="../js/personal.js"></script>
+<script src="../js/icon/bootstrap.min.js"></script>
+<script src="../js/icon/cropper.js"></script>
+<script src="../js/icon/sitelogo.js"></script>
+<script src="../js/icon/html2canvas.min.js" type="text/javascript" charset="utf-8"></script> 
+
+
+
  </html>

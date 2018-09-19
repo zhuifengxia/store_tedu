@@ -4,8 +4,10 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>学子商城登陆页面</title>
-     <link href="../css/login.css" rel="stylesheet" />
-     <%@ include file="htmlhead.html" %>
+    <link href="../css/login.css" rel="stylesheet" />
+    <link href="../css/header.css" rel="stylesheet"/>
+  <link href="../css/footer.css" rel="stylesheet"/>
+  <link href="../css/animate.css" rel="stylesheet"/>
 </head>
 <body>
 <!-- 页面顶部-->

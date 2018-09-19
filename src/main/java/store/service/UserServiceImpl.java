@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import store.bean.User;
 import store.ex.PasswordNotMatchException;
+import store.ex.UserNotFoundException;
 import store.ex.UsernameAlreadyExistsException;
 import store.ex.UsernameNotFoundException;
 import store.mapper.UserMapper;
@@ -35,6 +36,13 @@ public class UserServiceImpl implements IUserService {
 	public User findUserByUsername(String username) {
 		User user = userMapper.findUserByUsername(username);
 		return user;
+	}
+
+	/**
+	 * 根据用户id查询用户数据
+	 */
+	public User findUserById(Integer uid) {
+		return userMapper.findUserById(uid);
 	}
 
 	/**
@@ -76,4 +84,59 @@ public class UserServiceImpl implements IUserService {
 			}
 		}
 	}
+
+	/**
+	 * 修改密码操作
+	 */
+	public Integer changePassword(Integer uid, String oldPassword, String newPassword) {
+		User user = findUserById(uid);
+		if (user == null) {
+			// 该用户不存在
+			throw new UserNotFoundException("用户不存在");
+		} else {
+			if (user.getPassword().equals(oldPassword)) {
+				// 修改密码
+				User u = new User();
+				u.setPassword(newPassword);
+				u.setId(uid);
+				return userMapper.update(u);
+			} else {
+				// 旧密码错误不允许修改密码
+				throw new PasswordNotMatchException("旧密码不匹配");
+			}
+		}
+	}
+
+	/**
+	 * 修改个人信息操作
+	 */
+	public Integer editProfile(Integer uid, String username, Integer gender, String phone, String email) {
+		User user = findUserById(uid);
+		if (user == null) {
+			// 该用户不存在
+			throw new UserNotFoundException("用户不存在");
+		} else {
+			User u = new User();
+			if (!user.getUsername().equals(username)) {
+				User user2 = findUserByUsername(username);
+				if (user2 != null) {
+					if (!user2.getId().equals(uid)) {
+						// 根据用户名查询到的用户数据的id和当前id比较不相同说明新修改的用户名已经被占用，否则可以修改
+						throw new UsernameAlreadyExistsException("用户名已经被占用");
+					}
+				} else {
+					// 可以更改
+					u.setUsername(username);
+				}
+			}
+			u.setId(uid);
+			u.setGender(gender);
+			if (phone != null && phone.length() >= 11) {
+				u.setPhone(phone);
+			}
+			u.setEmail(email);
+			return userMapper.update(u);
+		}
+	}
+
 }

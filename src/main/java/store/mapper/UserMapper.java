@@ -19,6 +19,14 @@ public interface UserMapper {
 	User findUserByUsername(String username);
 
 	/**
+	 * 根据用户id查询用户信息
+	 * 
+	 * @param uid
+	 * @return
+	 */
+	User findUserById(Integer uid);
+
+	/**
 	 * 获取目标邮箱对应的数量集合
 	 * 
 	 * @param email
@@ -33,5 +41,13 @@ public interface UserMapper {
 	 * @return
 	 */
 	Integer getRecordCountByPhone(String phone);
+
+	/**
+	 * 用于修改个人信息和密码等
+	 * 
+	 * @param user
+	 * @return
+	 */
+	Integer update(User user);
 
 }

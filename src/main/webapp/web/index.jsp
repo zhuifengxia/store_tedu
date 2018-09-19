@@ -5,22 +5,20 @@
 <head lang="cn">
     <meta charset="UTF-8">
     <title>学子商城首页</title>
-    <%@ include file="htmlhead.html" %>
+      <link href="../css/header.css" rel="stylesheet"/>
+  <link href="../css/footer.css" rel="stylesheet"/>
+  <link href="../css/animate.css" rel="stylesheet"/>
+    <link href="../css/index.css" rel="stylesheet"/>
+    <link href="../css/slide.css" rel="stylesheet"/>
     </head>
 <body>
 
 <!-- 页面顶部-->
 <%@ include file="indextop.jsp" %>
+<%-- 两种方式 <c:import url="indextop.jsp"></c:import> --%>
 
 
-<!-- nav主导航-->
-<nav id="nav">
-    <ul>
-        <li><a href="index.html" class="acti">首页</a></li>
-        <li><a href="index.html#computer" >电脑办公</a></li>
-        <li><a href="index.html#stationery" >办公文具</a></li>
-    </ul>
-</nav>
+
 <!-- banner部分-->
 <div class="ck-slide">
     <ul class="ck-slide-wrapper">

@@ -97,10 +97,13 @@ function toPage(page){
 }
 
 
+var gender=0;
+
 /**
  * 性别选择男
  */
 $(".man").click(function(){
+	gender=1;
 	if(!$(".man").hasClass("selected")){
 		$(".man").addClass("selected");
 		$(".man img").attr("src","../images/personage/select.png");
@@ -113,6 +116,7 @@ $(".man").click(function(){
  * 性别选择女
  */
 $(".women").click(function(){
+	gender=0;
 	if(!$(".women").hasClass("selected")){
 		$(".women").addClass("selected");
 		$(".women img").attr("src","../images/personage/select.png");

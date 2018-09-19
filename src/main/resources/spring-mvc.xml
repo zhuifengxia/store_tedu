@@ -32,6 +32,23 @@
 <!-- 注解驱动 -->
 <mvc:annotation-driven/>
 
+<!-- 添加登录拦截器 -->
+<mvc:interceptors>
+	<mvc:interceptor>
+		<!-- 拦截范围(两个*代表包含子集的地址) -->
+		<mvc:mapping path="/user/*"/>
+		<!-- 添加拦截例外（不拦截） -->
+		<mvc:exclude-mapping path="/user/login.do"/>
+		<mvc:exclude-mapping path="/user/handle_login.do"/>
+		<mvc:exclude-mapping path="/user/register.do"/>
+		<mvc:exclude-mapping path="/user/handle_register.do"/>
+		<mvc:exclude-mapping path="/user/check_email.do"/>
+		<mvc:exclude-mapping path="/user/check_username.do"/>
+		<mvc:exclude-mapping path="/user/check_phone.do"/>
+		<bean class="store.interceptor.LoginInterceptor" />
+	</mvc:interceptor>
+</mvc:interceptors>
+
 </beans>
 
 

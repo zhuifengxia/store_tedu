@@ -14,13 +14,25 @@ VALUES
 </insert>
 <!-- 根据用户名查询用户信息 -->
 <select id="findUserByUsername" resultType="store.bean.User">
-SELECT username,password,phone,email,gender,
+SELECT id,username,password,phone,email,gender,
 created_user AS createdUser,
 created_time AS createdTime,
 modified_user AS modifiedUser,
 modified_time AS modifiedTime
 FROM t_user 
 WHERE username=#{username};
+</select>
+
+
+<!-- 根据用户id查询用户信息 -->
+<select id="findUserById" resultType="store.bean.User">
+SELECT id,username,password,phone,email,gender,
+created_user AS createdUser,
+created_time AS createdTime,
+modified_user AS modifiedUser,
+modified_time AS modifiedTime
+FROM t_user 
+WHERE id=#{uid};
 </select>
 
 <!-- 查询邮箱是否被占用 -->
@@ -38,6 +50,32 @@ FROM t_user
 WHERE
  phone=#{phone};
 </select>
+
+<!-- 修改个人信息数据 -->
+<update id="update" parameterType="store.bean.User" >
+UPDATE
+ 	t_user 
+ SET 
+ <if test="password!=null">
+	password=#{password} , 
+ </if>
+ <if test="username!=null">
+ 	username=#{username},
+ </if>
+ <if test="gender!=null">
+ 	gender=#{gender},
+ </if>
+ <if test="phone!=null">
+ 	phone=#{phone}, 
+ </if>
+<if test="email!=null">
+ 	email=#{email},
+ </if>
+modified_user=#{modifiedUser},
+modified_time=#{modifiedTime}
+ WHERE 
+ id=#{id}
+</update>
 
 </mapper>
 	

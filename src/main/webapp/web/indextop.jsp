@@ -12,21 +12,29 @@
     <div class="rt">
         <ul class="lf">
         <c:if test="${user!=null }">
-	    	<li><a href="#">${user.username }</a></li>
+	    	<li><a href="${pageContext.request.contextPath }/user/profile.do">${user.username }</a><b>|</b></li>
 	    </c:if>
-            <li><a href="favorites.html" title="我的收藏"><img class="care" src="../images/header/care.png" alt=""/></a><b>|</b></li>
-            <li><a href="orders.html" title="我的订单"><img class="order" src="../images/header/order.png" alt=""/></a><b>|</b></li>
-            <li><a href="cart.html" title="我的购物车"><img class="shopcar" src="../images/header/shop_car.png" alt=""/></a><b>|</b></li>
-            <li><a href="help.html">帮助</a><b>|</b></li>
+            <li><a href="#favorites.html" title="我的收藏"><img class="care" src="../images/header/care.png" alt=""/></a><b>|</b></li>
+            <li><a href="#orders.html" title="我的订单"><img class="order" src="../images/header/order.png" alt=""/></a><b>|</b></li>
+            <li><a href="#cart.html" title="我的购物车"><img class="shopcar" src="../images/header/shop_car.png" alt=""/></a><b>|</b></li>
+            <li><a href="#help.html">帮助</a><b>|</b></li>
             
             <c:if test="${user!=null }">
-            	<li><a href="../user/logout.do">退出</a></li>
+            	<li><a href="${pageContext.request.contextPath }/user/logout.do">退出</a></li>
             </c:if>
             
             <c:if test="${user==null }">
-            	 <li><a href="../user/login.do">登录</a></li>
+            	 <li><a href="${pageContext.request.contextPath }/user/login.do">登录</a></li>
             </c:if>
            
         </ul>
     </div>
 </header>
+<!-- nav主导航-->
+<nav id="nav">
+    <ul>
+        <li><a href="../main/index.do" class="acti">首页</a></li>
+        <li><a href="index.html#computer" >电脑办公</a></li>
+        <li><a href="index.html#stationery" >办公文具</a></li>
+    </ul>
+</nav>
