@@ -23,10 +23,10 @@
 }
 .rs_content{
     background: #fff;
-    position: relative;
     z-index: 1; 
-    padding:30px 20px 80px 20px;
+    padding:30px 20px 20px 20px;
     font: 16px simhei;
+    overflow:hidden;
 }
 .pic{
 	width: 566px;
@@ -178,7 +178,7 @@
 .address_particular>textarea{
     position: absolute;
     top: 0;
-    left: 100px;
+    left: 115px;
     border: 1px solid #808080;
 }
 .address_tel>input{

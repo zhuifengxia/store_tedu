@@ -5,7 +5,7 @@
  */
 $(".sp").click(function(){
 	var value = $(this).html();
-	$("#addressName").val(value);
+	$("#recvTag").val(value);
 })
 
 /**

@@ -37,6 +37,8 @@
 	<mvc:interceptor>
 		<!-- 拦截范围(两个*代表包含子集的地址) -->
 		<mvc:mapping path="/user/*"/>
+		<mvc:mapping path="/address/*"/>
+		
 		<!-- 添加拦截例外（不拦截） -->
 		<mvc:exclude-mapping path="/user/login.do"/>
 		<mvc:exclude-mapping path="/user/handle_login.do"/>
