@@ -1,4 +1,4 @@
-package store.service;
+package store.service.impl;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import store.bean.Address;
 import store.ex.DataNotFoundException;
 import store.mapper.AddressMapper;
+import store.service.IAddressService;
 
 @Service("addressService")
 public class AddressServiceImpl implements IAddressService {

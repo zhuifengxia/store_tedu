@@ -101,68 +101,45 @@
 					</span>
 				</div>
 				<div class="item_cat_all">
-					<p>电脑整机</p>
+					<p>${categories161[0].name }</p>
 					<ul>
-						<li><a href="#">笔记本</a></li>
-						<li><a href="#">游戏机</a></li>
-						<li><a href="#">台式机</a></li>
-						<li><a href="#">一体机</a></li>
-						<li><a href="#">服务器</a></li>
-						<li><a href="#">联想</a></li>
+						<c:forEach var="category" items="${goodsCategories[0]}">
+							<li><a href="../goods/list.do?categoryId=${category.id}">${category.name}</a></li>
+						</c:forEach>
 					</ul>
-					<p>电脑配件</p>
+
+					<p>${categories161[1].name }</p>
 					<ul>
-						<li><a href="#">CPU</a></li>
-						<li><a href="#">SSD硬盘</a></li>
-						<li><a href="#">显示器</a></li>
-						<li><a href="#">显卡</a></li>
-						<li><a href="#">组装电脑</a></li>
-						<li><a href="#">机箱</a></li>
+						<c:forEach var="category" items="${goodsCategories[1]}">
+							<li><a href="../goods/list.do?categoryId=${category.id}">${category.name}</a></li>
+						</c:forEach>
 					</ul>
-					<p>外设/游戏</p>
+
+					<p>${categories161[2].name }</p>
 					<ul>
-						<li><a href="#">键盘</a></li>
-						<li><a href="#">鼠标</a></li>
-						<li><a href="#">U盘</a></li>
-						<li><a href="#">移动硬盘</a></li>
-						<li><a href="#">游戏设备</a></li>
-						<li><a href="#">智能单车</a></li>
+						<c:forEach var="category" items="${goodsCategories[2]}">
+							<li><a href="../goods/list.do?categoryId=${category.id}">${category.name}</a></li>
+						</c:forEach>
 					</ul>
+
 				</div>
 			</div>
-			<div class="item_msg lf">
-				<img src="../images/itemCat/study_computer_img3.png" alt="" />
 
-				<p class="bottom_ys2">戴尔(DELL)XPS13-9360-R1609 13.3英寸微边框笔记本电脑</p>
 
-				<p class="bottom_ys3">￥4600.00</p>
+			<c:forEach var="computer" items="${computers}">
+				<div class="item_msg lf">
+					<img src="${pageContext.request.contextPath }${computer.image}" alt="" />
 
-				<p class="bottom_ys4 color_2">
-					<a href="product_details.html">查看详情</a>
-				</p>
-			</div>
-			<div class="item_msg lf">
-				<img src="../images/itemCat/study_computer_img4.png" alt="" />
+					<p class="bottom_ys2">${computer.title}</p>
 
-				<p class="bottom_ys2">14.8mm超轻薄笔记本电脑 航海王版 13.3英寸微边框笔记本电脑</p>
+					<p class="bottom_ys3">￥${computer.price}</p>
 
-				<p class="bottom_ys3">￥5600.00</p>
+					<p class="bottom_ys4 color_2">
+						<a href="#product_details.html?${computer.id}">查看详情</a>
+					</p>
+				</div>
+			</c:forEach>
 
-				<p class="bottom_ys4 color_2">
-					<a href="product_details.html">查看详情</a>
-				</p>
-			</div>
-			<div class="item_msg lf">
-				<img src="../images/itemCat/study_computer_img5.png" alt="" />
-
-				<p class="bottom_ys2">联想(Lenovo) YOGA900 多彩版 13.3英寸微边框笔记本电脑</p>
-
-				<p class="bottom_ys3">￥6600.00</p>
-
-				<p class="bottom_ys4 color_2">
-					<a href="product_details.html">查看详情</a>
-				</p>
-			</div>
 		</div>
 	</div>
 	<!--楼梯2f-->

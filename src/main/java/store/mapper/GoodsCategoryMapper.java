@@ -2,6 +2,8 @@ package store.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import store.bean.GoodsCategory;
 
 public interface GoodsCategoryMapper {
@@ -14,5 +16,6 @@ public interface GoodsCategoryMapper {
 	 * @param count获取数据数量
 	 * @return
 	 */
-	List<GoodsCategory> getGoodsCategoryListByParentId(Integer parentId, Integer offset, Integer count);
+	List<GoodsCategory> getGoodsCategoryListByParentId(@Param("parentId") Integer parentId,
+			@Param("offset") Integer offset, @Param("count") Integer count);
 }

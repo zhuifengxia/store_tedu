@@ -5,96 +5,28 @@
 <mapper namespace="store.mapper.GoodsCategoryMapper">
 	<!-- 通过子节点配置与抽象方法的映射关系 -->
 
-	
-	<select id="getGoodsCategoryListByParentId" resultType="store.bean.GoodsCategory">
+
+	<select id="getGoodsCategoryListByParentId"
+		resultType="store.bean.GoodsCategory">
 		SELECT
-		id,uid,
-		recv_name AS recvName,
-		recv_province AS recvProvince,
-		recv_city AS
-		recvCity,
-		recv_area AS recvArea,
-		recv_addr AS recvAddr,
-		recv_phone AS
-		recvPhone,
-		recv_tel AS recvTel,
-		recv_zip AS recvZip,
-		recv_tag AS recvTag,
-		recv_district AS recvDistrict,
-		is_default AS isDefault
+		id,
+		parent_id AS parentId,
+		name,status,
+		sort_order AS sortOrder,
+		is_parent AS isParent,
+		created_time AS createdTime,
+		modified_time AS
+		modifiedTime,
+		created_user AS createdUser,
+		modified_user AS modifiedUser
 		FROM
-		t_address
+		t_goods_category
 		WHERE
-		uid=#{uid}
-		ORDER BY is_default DESC
+		parent_id=#{parentId}
+		<if test="offset!=null">
+			LIMIT #{offset},#{count}
+		</if>
 	</select>
-
-	<!-- 根据地址id和用户id获取地址数据信息 -->
-	<select id="getAddressByIdAndUid"
-		resultType="store.bean.Address">
-		SELECT
-		id,uid,
-		recv_name AS recvName,
-		recv_province AS
-		recvProvince,
-		recv_city AS
-		recvCity,
-		recv_area AS recvArea,
-		recv_addr AS
-		recvAddr,
-		recv_phone AS
-		recvPhone,
-		recv_tel AS recvTel,
-		recv_zip AS
-		recvZip,
-		recv_tag AS recvTag,
-		recv_district AS recvDistrict,
-		is_default
-		AS isDefault
-		FROM
-		t_address
-		WHERE
-		id=#{id} AND uid=#{uid}
-	</select>
-
-	<!-- 删除地址 -->
-	<delete id="delete">
-		DELETE FROM t_address WHERE id=#{id} AND uid=#{uid}
-	</delete>
-
-
-	<!-- 修改地址信息数据 -->
-	<update id="update" parameterType="store.bean.Address">
-		UPDATE
-		t_address
-		SET
-		recv_name=#{recvName},
-		recv_province=#{recvProvince},
-		recv_city
-		=#{recvCity},
-		recv_area=#{recvArea},
-		recv_addr =#{ recvAddr},
-		recv_phone
-		=#{recvPhone},
-		recv_tel =#{recvTel},
-		recv_zip =#{recvZip},
-		recv_tag
-		=#{recvTag},
-		recv_district =#{recvDistrict}
-		WHERE
-		id=#{id} AND uid=#{uid}
-	</update>
-
-	<!-- 设置默认地址 -->
-	<update id="setDefault">
-		UPDATE t_address SET is_default=1 WHERE id=#{id}
-		AND uid=#{uid}
-	</update>
-
-<!-- 取消所有默认地址 -->
-	<update id="cancelAllDefault">
-		UPDATE t_address SET is_default=0 WHERE uid=#{uid}
-	</update>
 
 </mapper>
 	

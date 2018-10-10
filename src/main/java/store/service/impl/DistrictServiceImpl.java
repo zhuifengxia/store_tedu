@@ -1,4 +1,4 @@
-package store.service;
+package store.service.impl;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import store.bean.Area;
 import store.bean.City;
 import store.bean.Province;
 import store.mapper.DistrictMapper;
+import store.service.IDistrictService;
 
 @Service("districtService")
 public class DistrictServiceImpl implements IDistrictService {

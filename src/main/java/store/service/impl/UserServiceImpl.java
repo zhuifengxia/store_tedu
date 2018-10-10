@@ -1,7 +1,8 @@
-package store.service;
+package store.service.impl;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Service;
 
 import store.bean.User;
@@ -10,6 +11,7 @@ import store.ex.UserNotFoundException;
 import store.ex.UsernameAlreadyExistsException;
 import store.ex.UsernameNotFoundException;
 import store.mapper.UserMapper;
+import store.service.IUserService;
 
 @Service("userService")
 public class UserServiceImpl implements IUserService {
@@ -23,6 +25,13 @@ public class UserServiceImpl implements IUserService {
 		// 根据用户名是否被占用
 		if (!checkUsernameExists(user.getUsername())) {
 			// 新增，执行注册
+			// 获取密码进行密码加密
+			String pwd = user.getPassword();
+			String salt = "我的盐秘钥";
+			// 加密后的密码
+			String pwdmd5 = DigestUtils.md5Hex(pwd + salt);
+			// 加密后的密码存入user
+			user.setPassword(pwdmd5);
 			userMapper.insert(user);
 			return user.getId();
 		} else {
@@ -75,7 +84,9 @@ public class UserServiceImpl implements IUserService {
 			// 用户名不对
 			throw new UsernameNotFoundException("用户名错误");
 		} else {
-			if (!password.equals(user.getPassword())) {
+			String salt = "我的盐秘钥";
+			String pwdmd5 = DigestUtils.md5Hex(password + salt);
+			if (!pwdmd5.equals(user.getPassword())) {
 				// 密码错误
 				throw new PasswordNotMatchException("密码错误");
 			} else {
@@ -94,10 +105,13 @@ public class UserServiceImpl implements IUserService {
 			// 该用户不存在
 			throw new UserNotFoundException("用户不存在");
 		} else {
-			if (user.getPassword().equals(oldPassword)) {
+			String salt = "我的盐秘钥";
+			String oldpwdmd5 = DigestUtils.md5Hex(oldPassword + salt);
+			if (user.getPassword().equals(oldpwdmd5)) {
 				// 修改密码
 				User u = new User();
-				u.setPassword(newPassword);
+				String newpwdmd5 = DigestUtils.md5Hex(newPassword + salt);
+				u.setPassword(newpwdmd5);
 				u.setId(uid);
 				return userMapper.update(u);
 			} else {
