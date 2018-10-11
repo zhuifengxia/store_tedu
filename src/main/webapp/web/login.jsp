@@ -34,6 +34,11 @@
 							name="lwd" required minlength="6" maxlength="15"> <span><img
 							src="../images/login/mm.png"></span>
 					</div>
+					<div class="text">
+						<input type="text" id="code" placeholder="请输入您的验证码" name="code"
+							required minlength="4" maxlength="4"> <span> <img
+							src="code.do" style="top: -37px; right: -163px" id="codeImg"></span>
+					</div>
 					<div class="chose">
 						<input type="checkbox" class="checkbox" id="ck_rmbUser">自动登录
 						<span>忘记密码？</span>
@@ -58,15 +63,47 @@
 				return false;
 			}
 		});
+
+		$("#code").blur(function() {
+			var code = $("#code").val();
+			if (code == null || code == "") {
+				$("#showResult").text("验证码不能为空！");
+				$("#showResult").css("color", "red");
+				return false;
+			}
+			$.ajax({
+				"url" : "check_code.do",
+				"data" : {
+					code : code
+				},
+				"type" : "POST",
+				"dataType" : "json",
+				"success" : function(obj) {
+					if (obj.state == 1) {
+						$("#showResult").text(obj.message);
+						$("#showResult").css("color", "green");
+					} else {
+						$("#showResult").text(obj.message);
+						$("#showResult").css("color", "red");
+					}
+				}
+			});
+
+		});
+		
+		$("#codeImg").click(function(){
+			$("#codeImg")[0].src="code.do?"+new Date();
+		});
 	</script>
 	<script>
+	
 		$('#bt-login').click(
 				function() {
 					//异步提交登录请求
 					$.ajax({
 						"url" : 'handle_login.do',
 						"data" : "username=" + $("#username").val()
-								+ "&password=" + $("#password").val(),
+								+ "&password=" + $("#password").val()+"&code="+$("#code").val(),
 						"type" : 'POST',
 						"dataType" : "json",
 						success : function(obj) {

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="store.mapper.CartMapper">
+	<!-- 通过子节点配置与抽象方法的映射关系 -->
+
+	<!-- 加入购物车 -->
+	<insert id="add" parameterType="store.bean.Cart"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO t_cart
+		(uid,goods_id,iscollect,created_user,created_time,modified_user,modified_time)
+		VALUES
+		(#{uid},#{goodsId},#{isCollect},#{createdUser},#{createdTime},#{modifiedUser},#{modifiedTime})
+	</insert>
+
+</mapper>
+	
+	
+	
+	
+	
+	
+	
+	

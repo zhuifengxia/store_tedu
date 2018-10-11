@@ -30,7 +30,7 @@
 
 #cover{
     width: 280px;
-    height: 296px;
+    /*height: 296px;*/
     margin-right: 122px;
     margin-top: 122px;
     box-sizing: border-box;
@@ -40,7 +40,7 @@
     float: left;
     overflow: hidden;
     width: 253px;
-    height: 277px;
+    /*height: 277px;*/
     padding: 10px;
 }
 #form-register .txt{
@@ -209,7 +209,7 @@ input[type="button"] {
     /* margin-top: 250px; */
     /* margin-bottom: -51px; */
     position: absolute;
-    top: 330px;
+    top: 450px;
     right: 135px;
     display: inline-block;
     line-height: 30px;

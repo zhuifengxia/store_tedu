@@ -1,6 +1,15 @@
 package store.controller;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Random;
+
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -185,13 +194,17 @@ public class UserController extends BaseController {
 	 */
 	@RequestMapping(value = "/handle_login.do", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseResult<Void> handleLogin(String username, String password, HttpSession session) {
+	public ResponseResult<Void> handleLogin(String username, String password, String code, HttpSession session) {
 		ResponseResult<Void> rr;
 		try {
-			User user = userService.login(username, password);
-			session.setAttribute("user", user);
-			// 登录成功
-			rr = new ResponseResult<Void>(1);
+			if (!code.equalsIgnoreCase((String) session.getAttribute("code"))) {
+				rr = new ResponseResult<Void>(-2, "验证码验证失败");
+			} else {
+				User user = userService.login(username, password);
+				session.setAttribute("user", user);
+				// 登录成功
+				rr = new ResponseResult<Void>(1);
+			}
 		} catch (PasswordNotMatchException e) {
 			// 密码错误
 			rr = new ResponseResult<Void>(-1, e);
@@ -250,5 +263,108 @@ public class UserController extends BaseController {
 			rr = new ResponseResult<Void>(-2, e);
 		}
 		return rr;
+	}
+
+	/**
+	 * 校验验证码
+	 * 
+	 * @param code用户输入验证码
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("/check_code.do")
+	@ResponseBody
+	public ResponseResult<Void> checkCode(String code, HttpSession session) {
+		String sessioncode = (String) session.getAttribute("code");
+		ResponseResult<Void> rr;
+		if (sessioncode == null) {
+			rr = new ResponseResult<Void>(0, "验证码验证失败");
+		} else {
+			// equalsIgnoreCase忽略大小写验证字符串是否一致
+			if (sessioncode.equalsIgnoreCase(code)) {
+				rr = new ResponseResult<Void>(1, "验证码验证成功");
+			} else {
+				rr = new ResponseResult<Void>(0, "验证码验证失败");
+			}
+		}
+		return rr;
+	}
+
+	/**
+	 * 生成验证码
+	 * 
+	 * @ 用于设定content-type属性
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/code.do", produces = "image/png")
+	@ResponseBody
+	public byte[] code(HttpSession session) throws IOException {
+		// 生成验证码
+		String code = createCode(4);
+		// 将验证码存入session中
+		session.setAttribute("code", code);
+		// 验证码生成图片
+		byte[] bytes = createPng(code);
+		return bytes;
+	}
+
+	/**
+	 * 创建图片
+	 * 
+	 * @param code验证码
+	 * @return
+	 * @throws s
+	 */
+	private byte[] createPng(String code) throws IOException {
+		// 创建图片对象
+		BufferedImage img = new BufferedImage(100, 37, BufferedImage.TYPE_3BYTE_BGR);
+		// 绘制随机色点
+		Random random = new Random();
+		for (int i = 0; i < 500; i++) {
+			int x = random.nextInt(img.getWidth());
+			int y = random.nextInt(img.getHeight());
+			int rgb = random.nextInt(0xffffff);
+			img.setRGB(x, y, rgb);
+		}
+		// 利用api绘制验证码字符串
+		Graphics2D g = img.createGraphics();
+		Color color = new Color(random.nextInt(0xffffff));
+		// 设置画笔颜色
+		g.setColor(color);
+		// 设置字体
+		Font font = new Font(Font.SANS_SERIF, Font.ITALIC, 35);
+		g.setFont(font);
+		g.drawString(code, 8, 34);
+
+		// 绘制干扰线
+		for (int i = 0; i < 5; i++) {
+			g.drawLine(random.nextInt(img.getWidth()), random.nextInt(img.getHeight()), random.nextInt(img.getWidth()),
+					random.nextInt(img.getHeight()));
+		}
+
+		// 将图片对象编码为png数据
+		ByteArrayOutputStream output = new ByteArrayOutputStream();
+		ImageIO.write(img, "png", output);
+		output.close();
+		byte[] bytes = output.toByteArray();
+		return bytes;
+	}
+
+	/**
+	 * 生成验证码
+	 * 
+	 * @param n验证码个数
+	 * @return
+	 */
+	private String createCode(int n) {
+		String chs = "qwertyuipkjhgdsazxcvbnmQWERTYUIPLKJHGFDSAZXCVBNM23456789";
+		char[] code = new char[n];
+		Random random = new Random();
+		for (int i = 0; i < code.length; i++) {
+			int index = random.nextInt(chs.length());
+			code[i] = chs.charAt(index);
+		}
+		return new String(code);
 	}
 }

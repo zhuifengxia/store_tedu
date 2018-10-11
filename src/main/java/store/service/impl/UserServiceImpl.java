@@ -3,6 +3,7 @@ package store.service.impl;
 import javax.annotation.Resource;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import store.bean.User;
@@ -18,6 +19,9 @@ public class UserServiceImpl implements IUserService {
 	@Resource(name = "userMapper")
 	private UserMapper userMapper;
 
+	@Value("#{dbConfig.salt}")
+	private String salt;
+
 	/**
 	 * 注册用户
 	 */
@@ -27,7 +31,6 @@ public class UserServiceImpl implements IUserService {
 			// 新增，执行注册
 			// 获取密码进行密码加密
 			String pwd = user.getPassword();
-			String salt = "我的盐秘钥";
 			// 加密后的密码
 			String pwdmd5 = DigestUtils.md5Hex(pwd + salt);
 			// 加密后的密码存入user
@@ -84,7 +87,6 @@ public class UserServiceImpl implements IUserService {
 			// 用户名不对
 			throw new UsernameNotFoundException("用户名错误");
 		} else {
-			String salt = "我的盐秘钥";
 			String pwdmd5 = DigestUtils.md5Hex(password + salt);
 			if (!pwdmd5.equals(user.getPassword())) {
 				// 密码错误
@@ -105,7 +107,6 @@ public class UserServiceImpl implements IUserService {
 			// 该用户不存在
 			throw new UserNotFoundException("用户不存在");
 		} else {
-			String salt = "我的盐秘钥";
 			String oldpwdmd5 = DigestUtils.md5Hex(oldPassword + salt);
 			if (user.getPassword().equals(oldpwdmd5)) {
 				// 修改密码

@@ -47,6 +47,8 @@
 		<mvc:exclude-mapping path="/user/check_email.do"/>
 		<mvc:exclude-mapping path="/user/check_username.do"/>
 		<mvc:exclude-mapping path="/user/check_phone.do"/>
+		<mvc:exclude-mapping path="/user/code.do"/>
+		<mvc:exclude-mapping path="/user/check_code.do"/>
 		<bean class="store.interceptor.LoginInterceptor" />
 	</mvc:interceptor>
 </mvc:interceptors>
