@@ -20,7 +20,7 @@
 					src="../images/header/care.png" alt="" /></a><b>|</b></li>
 			<li><a href="#orders.html" title="我的订单"><img class="order"
 					src="../images/header/order.png" alt="" /></a><b>|</b></li>
-			<li><a href="#cart.html" title="我的购物车"><img class="shopcar"
+			<li><a href="../cart/list.do" title="我的购物车"><img class="shopcar"
 					src="../images/header/shop_car.png" alt="" /></a><b>|</b></li>
 			<li><a href="#help.html">帮助</a><b>|</b></li>
 

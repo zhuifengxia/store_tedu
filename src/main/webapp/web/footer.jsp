@@ -88,5 +88,5 @@
 	charset="utf-8"></script>
 <script type="text/javascript" src="../js/distpicker.data111.js"></script>
 <script type="text/javascript" src="../js/distpicker111.js"></script>
-
+<script src="../js/cart.js"></script>
 </html>

@@ -10,7 +10,8 @@ public class Cart implements Serializable {
 	private Integer uid;
 	private Integer goodsId;
 	private Goods goods;
-	private Integer isollect;
+	private Integer isCollect;
+	private Integer goodsCount;
 	private String createdUser;
 	private Date createdTime;
 	private String modifiedUser;
@@ -20,14 +21,15 @@ public class Cart implements Serializable {
 		super();
 	}
 
-	public Cart(Integer id, Integer uid, Integer goodsId, Goods goods, Integer isollect, String createdUser,
-			Date createdTime, String modifiedUser, Date modifiedTime) {
+	public Cart(Integer id, Integer uid, Integer goodsId, Goods goods, Integer isCollect, Integer goodsCount,
+			String createdUser, Date createdTime, String modifiedUser, Date modifiedTime) {
 		super();
 		this.id = id;
 		this.uid = uid;
 		this.goodsId = goodsId;
 		this.goods = goods;
-		this.isollect = isollect;
+		this.isCollect = isCollect;
+		this.goodsCount = goodsCount;
 		this.createdUser = createdUser;
 		this.createdTime = createdTime;
 		this.modifiedUser = modifiedUser;
@@ -66,12 +68,20 @@ public class Cart implements Serializable {
 		this.goods = goods;
 	}
 
-	public Integer getIsollect() {
-		return isollect;
+	public Integer getisCollect() {
+		return isCollect;
 	}
 
-	public void setIsollect(Integer isollect) {
-		this.isollect = isollect;
+	public void setisCollect(Integer isCollect) {
+		this.isCollect = isCollect;
+	}
+
+	public Integer getGoodsCount() {
+		return goodsCount;
+	}
+
+	public void setGoodsCount(Integer goodsCount) {
+		this.goodsCount = goodsCount;
 	}
 
 	public String getCreatedUser() {
@@ -113,9 +123,10 @@ public class Cart implements Serializable {
 		result = prime * result + ((createdTime == null) ? 0 : createdTime.hashCode());
 		result = prime * result + ((createdUser == null) ? 0 : createdUser.hashCode());
 		result = prime * result + ((goods == null) ? 0 : goods.hashCode());
+		result = prime * result + ((goodsCount == null) ? 0 : goodsCount.hashCode());
 		result = prime * result + ((goodsId == null) ? 0 : goodsId.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((isollect == null) ? 0 : isollect.hashCode());
+		result = prime * result + ((isCollect == null) ? 0 : isCollect.hashCode());
 		result = prime * result + ((modifiedTime == null) ? 0 : modifiedTime.hashCode());
 		result = prime * result + ((modifiedUser == null) ? 0 : modifiedUser.hashCode());
 		result = prime * result + ((uid == null) ? 0 : uid.hashCode());
@@ -146,6 +157,11 @@ public class Cart implements Serializable {
 				return false;
 		} else if (!goods.equals(other.goods))
 			return false;
+		if (goodsCount == null) {
+			if (other.goodsCount != null)
+				return false;
+		} else if (!goodsCount.equals(other.goodsCount))
+			return false;
 		if (goodsId == null) {
 			if (other.goodsId != null)
 				return false;
@@ -156,10 +172,10 @@ public class Cart implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (isollect == null) {
-			if (other.isollect != null)
+		if (isCollect == null) {
+			if (other.isCollect != null)
 				return false;
-		} else if (!isollect.equals(other.isollect))
+		} else if (!isCollect.equals(other.isCollect))
 			return false;
 		if (modifiedTime == null) {
 			if (other.modifiedTime != null)
@@ -181,9 +197,9 @@ public class Cart implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Cart [id=" + id + ", uid=" + uid + ", goodsId=" + goodsId + ", goods=" + goods + ", isollect="
-				+ isollect + ", createdUser=" + createdUser + ", createdTime=" + createdTime + ", modifiedUser="
-				+ modifiedUser + ", modifiedTime=" + modifiedTime + "]";
+		return "Cart [id=" + id + ", uid=" + uid + ", goodsId=" + goodsId + ", goods=" + goods + ", isCollect="
+				+ isCollect + ", goodsCount=" + goodsCount + ", createdUser=" + createdUser + ", createdTime="
+				+ createdTime + ", modifiedUser=" + modifiedUser + ", modifiedTime=" + modifiedTime + "]";
 	}
 
 }

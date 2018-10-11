@@ -79,7 +79,8 @@
 			<div class="avenge">
 				<ul>
 					<c:forEach items="${goodsList }" var="goodsItem">
-						<li><a href="details.do?id=${goodsItem.id }" <c:if test="${goods.id==goodsItem.id }">class="current"</c:if>   >${goodsItem.title }</a></li>
+						<li><a href="details.do?id=${goodsItem.id }"
+							<c:if test="${goods.id==goodsItem.id }">class="current"</c:if>>${goodsItem.title }</a></li>
 					</c:forEach>
 				</ul>
 			</div>
@@ -96,7 +97,8 @@
 			</p>
 			<!-- 购买部分-->
 			<div class="shops">
-				<a href="cart.html" class="buy lf" id="buy_now">立即购买</a> <a href="#"
+				<a href="cart.html" class="buy lf" id="buy_now">立即购买</a> 
+				<a href="#"
 					class="shop lf" id="add_cart"><img
 					src="../images/product_detail/product_detail_img7.png" alt="" />加入购物车</a>
 				<a href="#" class="collection lf" id="collect"><span>收藏</span></a><b><img
@@ -328,44 +330,22 @@
 			console.log(buyAccount);
 		}
 		$("#add_cart").click(function(e) {
-			location.href = "cart.html";
-			e.preventDefault();
-			getPro();
-			//如果未选择，请选择商品信息
-			//if (!color || !norms ) {
-			//            $("#add_cart").text("加入购物车").css({"background":"#f5f5f5","color":"#000"})
-			//    alert("请选择商品信息");
-			//}else{
-			// 	$(".modal").show();
-			//	$(".modal_information span").html("是否将您的宝贝加入购物车");
-			//}
-			//$('.no').click(function(){
-			//	$('.modal').hide();
-			//})
-			var params = {
-				itemColor : color,
-				itemModel : norms,
-				num : buyAccount,
-			//商品id    temId:${item.id}
-			};
-			/*        $.ajax({
-			 type: "post",
-			 url: "/insertToCart.html",
-			 data: params,
-			 success: function (data) {
-			 if (data == '200') {
-			 alert("添加购物车成功！");
-			 } else if (data == 500) {
-			 alert("添加购物车失败！");
-			 } else {
-			 alert("您还没登录呢！");
-			 window.location.href = data;
-			 }
-			 },
-			 error: function (data) {
-			 //              alert("系统异常！");
-			 }
-			 });*/
+			var url="../cart/add.do";
+			var buynum=$("#buy-num").val();
+			$.ajax({
+				"url":url,
+				"data":"goodsId=${goods.id}&goodsCount="+buynum,
+				"type":"POST",
+				"dataType":"json",
+				"success":function(obj){
+					if(obj.state==1){
+						alert(obj.message);
+					}
+				},
+				"error":function(){
+					location.href="../user/login.do";
+				}
+			});
 		})
 		/**添加到收藏**/
 		$("#collect").click(function(e) {
@@ -402,7 +382,7 @@
 			/**数量添加**/
 			var n = $("#buy-num").val() * 1;
 			$(".numberMinus").click(function() {
-				if (n >= 1) {
+				if (n >= 2) {
 					$("#buy-num").val(n -= 1);
 				}
 			})

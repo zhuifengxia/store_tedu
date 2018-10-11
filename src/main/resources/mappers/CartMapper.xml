@@ -9,10 +9,43 @@
 	<insert id="add" parameterType="store.bean.Cart"
 		useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO t_cart
-		(uid,goods_id,iscollect,created_user,created_time,modified_user,modified_time)
+		(uid,goods_id,iscollect,goods_count,created_user,created_time,modified_user,modified_time)
 		VALUES
-		(#{uid},#{goodsId},#{isCollect},#{createdUser},#{createdTime},#{modifiedUser},#{modifiedTime})
+		(#{uid},#{goodsId},#{isCollect},#{goodsCount},#{createdUser},#{createdTime},#{modifiedUser},#{modifiedTime})
 	</insert>
+
+	<!-- 调整购物车数量 -->
+	<update id="changeGoodsCount">
+		UPDATE
+		t_cart SET
+		goods_count=goods_count + #{amount}
+		WHERE
+		uid=#{uid} AND goods_id=#{goodsId}
+	</update>
+
+	<!-- 获取记录数量 -->
+	<select id="getRecordCount" resultType="java.lang.Integer">
+		SELECT COUNT(id) FROM
+		t_cart
+		WHERE goods_id=#{goodsId} AND uid=#{uid}
+	</select>
+
+	<!-- 获取记录数量 -->
+	<select id="getCartList" resultType="store.bean.Cart">
+		SELECT id, uid,
+		goods_id AS
+		goodsId,
+		iscollect AS isCollect,
+		goods_count AS goodsCount,
+		created_user
+		AS createdUser,
+		created_time AS createdTime,
+		modified_user AS
+		modifiedUser,
+		modified_time AS modifiedTime
+		FROM t_cart
+		WHERE uid=#{uid}
+	</select>
 
 </mapper>
 	
