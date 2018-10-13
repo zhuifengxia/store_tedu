@@ -39,6 +39,7 @@
 		<mvc:mapping path="/user/*"/>
 		<mvc:mapping path="/address/*"/>
 		<mvc:mapping path="/cart/*"/>
+		<mvc:mapping path="/order/*"/>
 		
 		<!-- 添加拦截例外（不拦截） -->
 		<mvc:exclude-mapping path="/user/login.do"/>

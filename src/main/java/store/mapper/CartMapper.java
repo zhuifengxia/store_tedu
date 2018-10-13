@@ -43,4 +43,11 @@ public interface CartMapper {
 	 * @return
 	 */
 	List<Cart> getCartList(@Param("uid") Integer uid);
+
+	/**
+	 * 根据购物车id获取购物车数据信息
+	 * 
+	 * @return
+	 */
+	Cart getCartById(@Param("uid") Integer uid, @Param("id") Integer id);
 }

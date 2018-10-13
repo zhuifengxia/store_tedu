@@ -246,7 +246,7 @@ img{
     padding-left:16px;
     overflow: hidden;
     float:left;
-    margin-top:10px;
+    margin-top:-20px;
     }
 #container .item_detail > .p_info > .product_name{
     width:300px;

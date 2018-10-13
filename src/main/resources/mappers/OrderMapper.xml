@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+	<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+		"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="store.mapper.OrderMapper">
+	<!-- 通过子节点配置与抽象方法的映射关系 -->
+
+	<!-- 增加订单 -->
+	<insert id="insertOrder" parameterType="store.bean.Order"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO t_order
+		(uid,recv_name,recv_district,recv_addr,recv_phone,recv_zip,total_price,status,created_user,created_time,modified_user,modified_time)
+		VALUES
+		(#{uid},#{recvName},#{recvDistrict},#{recvAddr},#{recvPhone},#{recvZip},#{totalPrice},#{status},#{createdUser},#{createdTime},#{modifiedUser},#{modifiedTime})
+	</insert>
+
+<!-- 增加订单中的商品信息 -->
+	<insert id="insertOrderItem" parameterType="store.bean.OrderItem"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO t_order_item
+		(order_id,goods_id,goods_price,goods_count,created_user,created_time,modified_user,modified_time)
+		VALUES
+		(#{orderId},#{goodsId},#{goodsPrice},#{goodsCount},#{createdUser},#{createdTime},#{modifiedUser},#{modifiedTime})
+	</insert>
+
+</mapper>
+	
+	
+	
+	
+	
+	
+	
+	

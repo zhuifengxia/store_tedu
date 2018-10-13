@@ -46,6 +46,22 @@
 		FROM t_cart
 		WHERE uid=#{uid}
 	</select>
+	
+	<select id="getCartById" resultType="store.bean.Cart">
+	SELECT id, uid,
+		goods_id AS
+		goodsId,
+		iscollect AS isCollect,
+		goods_count AS goodsCount,
+		created_user
+		AS createdUser,
+		created_time AS createdTime,
+		modified_user AS
+		modifiedUser,
+		modified_time AS modifiedTime
+		FROM t_cart
+		WHERE uid=#{uid} AND id=#{id}
+	</select>
 
 </mapper>
 	

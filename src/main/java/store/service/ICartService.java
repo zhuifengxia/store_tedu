@@ -2,8 +2,6 @@ package store.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import store.bean.Cart;
 
 public interface ICartService {
@@ -41,5 +39,7 @@ public interface ICartService {
 	 * @param uid用户id
 	 * @return
 	 */
-	List<Cart> getCartList(@Param("uid") Integer uid);
+	List<Cart> getCartList(Integer uid);
+
+	Cart getCartById(Integer uid, Integer id);
 }

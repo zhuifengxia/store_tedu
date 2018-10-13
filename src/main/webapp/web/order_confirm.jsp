@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -10,33 +12,7 @@
     </head>
 <body>
 <!-- 页面顶部-->
-<header id="top" class="fixed_nav">
-    <div id="logo" class="lf">
-        <img class="animated jello" src="../images/header/logo.png" alt="logo"/>
-    </div>
-    <div id="top_input" class="lf">
-        <input id="input" type="text" placeholder="请输入您要搜索的内容"/>
-        <a href="search.html" class="rt"><img id="search" src="../images/header/search.png" alt="搜索"/></a>
-    </div>
-    <div class="rt">
-        <ul class="lf">
-            <li><a href="favorites.html" title="我的收藏"><img class="care" src="../images/header/care.png" alt=""/></a><b>|</b></li>
-            <li><a href="orders.html" title="我的订单"><img class="order" src="../images/header/order.png" alt=""/></a><b>|</b></li>
-            <li><a href="cart.html" title="我的购物车"><img class="shopcar" src="../images/header/shop_car.png" alt=""/></a><b>|</b></li>
-            <li><a href="help.html">帮助</a><b>|</b></li>
-            <li><a href="login.html">登录</a></li>
-        </ul>
-    </div>
-</header>
-<!-- nav主导航-->
-<nav id="nav">
-    <ul>
-        <li><a href="index.html" class="acti">首页</a></li>
-        <li><a href="index.html#computer" >电脑办公</a></li>
-        <li><a href="index.html#stationery" >办公文具</a></li>
-    </ul>
-</nav>
-
+	<%@ include file="indextop.jsp"%>
 <div id="navlist">
     <ul>
         <li class="navlist_blue_left"></li>
@@ -55,41 +31,23 @@
     <!--收货地址-->
     <div class="adress_choice">
         <p>收货人信息<span class="rt" id="choose">新增收货地址</span></p>
-        <div id="addresId1" class="base_select">
+        <c:forEach items="${addressList}" var="address">
+        <div id="addresId1"  <c:if test="${address.isDefault==1}"> class="base_select"</c:if> >
             <i class="address_name">
-                刘冉北京
+                ${address.recvName }
             </i>
             <i class="user_address">
-                北京市 海淀区 大钟寺123号 139366668888
+                ${address.recvDistrict } ${address.recvPhone }
             </i>
+            <c:if test="${address.isDefault!=1}">
             <i class="user_site rt">
                 设为默认地址
             </i>
+            </c:if>
+            
         </div>
-        <div id="addresId2" class="base">
-            <i class="address_name">
-                刘冉北京
-            </i>
-            <i class="user_address">
-                北京市 海淀区 大钟寺123号 139366668888
-            </i>
+        </c:forEach>
         
-            <i class="user_site rt">
-                设为默认地址
-            </i>
-        </div>
-        <div id="addresId3" class="base">
-            <i class="address_name">
-                刘冉北京
-            </i>
-            <i class="user_address">
-                北京市 海淀区 大钟寺123号 139366668888
-            </i>
-          
-            <i class="user_site rt">
-                设为默认地址
-            </i>
-        </div>
         <a id="more" href="javascript:void(0);">
             更多地址 &gt;&gt;
         </a>
@@ -104,31 +62,33 @@
                 <li class="p_count">数量</li>
                 <li class="p_tPrice">金额</li>
             </ul>
+            <c:forEach items="${cartList }" var="cart">
             <ul class="item_detail">
                 <li class="p_info">
-                    <b><img src="../images/orderConfirm/product_simg1.png"/></b>
-
-                    <b class="product_name lf">
-                        联想(Lenovo)YoGA5 PRO 标配版电脑 (I5-7200U 8G 512G SSD IPS)
-                    </b>
+                    <b><img src="${pageContext.request.contextPath}${cart.goods.image }"/></b>
+<br/><br/>
+                    <span class="product_name">
+                        ${cart.goods.title }
+                    </span>
                     <br/>
                 <span class="product_color ">
-                   颜色：深空灰
+                   分类： ${cart.goods.itemType }
                 </span>
                 </li>
                 <li class="p_price">
                     <i>达内专属价</i>
                     <br/>
-                    <span class="pro_price">￥<span class="ppp_price">4800.00</span></span>
+                    <span class="pro_price">￥<span class="ppp_price">${cart.goods.price }.00</span></span>
                 </li>
-                <li class="p_count">X<span>1</span></li>
+                <li class="p_count">X<span>${cart.goodsCount }</span></li>
                 <li class="p_tPrice">￥<span></span></li>
             </ul>
+            </c:forEach>
         </div>
     </form>
     <!-- 结算条-->
     <div id="count_bar">
-        <span class="go_cart"><a href="#" >&lt;&lt;返回购物车</a></span>
+        <span class="go_cart"><a href="../cart/list.do" >&lt;&lt;返回购物车</a></span>
         <span class="count_bar_info">已选<b  id="count"> 0 </b>件商品&nbsp;&nbsp;合计(不含运费):<b class="zj"></b> <input type="hidden" name="Payment" value=""/>元</span>
         <span class="go_pay">确认并付款</span>
     </div>
@@ -173,71 +133,8 @@
     		</form>
     		</div>
 </div>
-<!-- 品质保障，私人定制等-->
-<div id="foot_box">
-    <div class="icon1 lf">
-        <img src="../images/footer/icon1.png" alt=""/>
-        <h3>品质保障</h3>
-    </div>
-    <div class="icon2 lf">
-        <img src="../images/footer/icon2.png" alt=""/>
-        <h3>私人定制</h3>
-    </div>
-    <div class="icon3 lf">
-        <img src="../images/footer/icon3.png" alt=""/>
-        <h3>学员特供</h3>
-    </div>
-    <div class="icon4 lf">
-        <img src="../images/footer/icon4.png" alt=""/>
-        <h3>专属特权</h3>
-    </div>
-</div>
-<!-- 页面底部-->
-<div class="foot_bj">
-    <div id="foot">
-        <div class="lf">
-             <p class="footer1"><img src="../images/footer/logo.png" alt="" class=" footLogo"/></p>
-             <p class="footer2"><img src="../images/footer/footerFont.png" alt=""/></p>
-        </div>
-        <div class="foot_left lf">
-            <ul>
-                <li><a href="#"><h3>买家帮助</h3></a></li>
-                <li><a href="#">新手指南</a></li>
-                <li><a href="#">服务保障</a></li>
-                <li><a href="#">常见问题</a></li>
-            </ul>
-            <ul>
-                <li><a href="#"><h3>商家帮助</h3></a></li>
-                <li><a href="#">商家入驻</a></li>
-                <li><a href="#">商家后台</a></li>
-            </ul>
-            <ul>
-                <li><a href="#"><h3>关于我们</h3></a></li>
-                <li><a href="#">关于达内</a></li>
-                <li><a href="#">联系我们</a></li>
-                <li>
-                    <img src="../images/footer/wechat.png" alt=""/>
-                    <img src="../images/footer/sinablog.png" alt=""/>
-                </li>
-            </ul>
-        </div>
-        <div class="service">
-            <p>学子商城客户端</p>
-            <img src="../images/footer/ios.png" class="lf">
-            <img src="../images/footer/android.png" alt="" class="lf"/>
-        </div>
-        <div class="download">
-            <img src="../images/footer/erweima.png">
-        </div>
-		<!-- 页面底部-备案号 #footer -->
-        <div class="record">
-            &copy;2017 达内集团有限公司 版权所有 京ICP证xxxxxxxxxxx
-        </div>
-    </div>
-
-</div>
-<script src="../js/jquery-3.1.1.min.js"></script>
-<script src="../js/index.js"></script>
+	<!-- 页面底部信息 -->
+	<%@ include file="footer.jsp"%>
 <script>
     var html=0;
     var total=0;
@@ -331,4 +228,3 @@
 </script>
 </body>
 </html>
-

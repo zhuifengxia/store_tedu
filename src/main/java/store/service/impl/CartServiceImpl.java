@@ -52,4 +52,8 @@ public class CartServiceImpl implements ICartService {
 		return cartMapper.getCartList(uid);
 	}
 
+	public Cart getCartById(Integer uid, Integer id) {
+		return cartMapper.getCartById(uid, id);
+	}
+
 }
