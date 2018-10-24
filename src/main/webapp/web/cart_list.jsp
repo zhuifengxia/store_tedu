@@ -81,7 +81,7 @@
 								<div class="pudc">
 									<div class="pudc_information" id="pudcId3">
 										<img width=100 height=80
-											src="${ pageContext.request.contextPath}${cart.goods.image }"
+											src="..${cart.goods.image }"
 											class="lf" /> <input type="hidden" name="" value="">
 										<span class="des lf"> ${cart.goods.title } <input
 											type="hidden" name="" value="">

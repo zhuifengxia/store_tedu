@@ -128,7 +128,7 @@
 
 			<c:forEach var="computer" items="${computers}">
 				<div class="item_msg lf">
-					<img src="${pageContext.request.contextPath }${computer.image}" alt="" />
+					<img src="..${computer.image}" alt="" />
 
 					<p class="bottom_ys2">${computer.title}</p>
 

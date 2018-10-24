@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +32,7 @@ import store.service.IUserService;
 @RequestMapping("/user")
 @Controller
 public class UserController extends BaseController {
-
+	private static Logger logger = Logger.getLogger(UserController.class);
 	@Resource(name = "userService")
 	private IUserService userService;
 
@@ -278,7 +279,7 @@ public class UserController extends BaseController {
 		String sessioncode = (String) session.getAttribute("code");
 		ResponseResult<Void> rr;
 		if (sessioncode == null) {
-			rr = new ResponseResult<Void>(0, "验证码验证失败");
+			rr = new ResponseResult<Void>(0, "验证码验证失败" + sessioncode);
 		} else {
 			// equalsIgnoreCase忽略大小写验证字符串是否一致
 			if (sessioncode.equalsIgnoreCase(code)) {
@@ -304,6 +305,12 @@ public class UserController extends BaseController {
 		String code = createCode(4);
 		// 将验证码存入session中
 		session.setAttribute("code", code);
+		// 记录debug级别的信息
+		logger.debug("debug级别的信息 ");
+		// 记录info级别的信息
+		logger.info("info级别的信息");
+		// 记录error级别的信息
+		logger.error("错误级别日志");
 		// 验证码生成图片
 		byte[] bytes = createPng(code);
 		return bytes;
@@ -333,7 +340,7 @@ public class UserController extends BaseController {
 		// 设置画笔颜色
 		g.setColor(color);
 		// 设置字体
-		Font font = new Font(Font.SANS_SERIF, Font.ITALIC, 35);
+		Font font = new Font("宋体", Font.ITALIC, 35);
 		g.setFont(font);
 		g.drawString(code, 8, 34);
 

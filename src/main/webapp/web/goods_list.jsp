@@ -26,7 +26,7 @@
 							<div class="info">
 								<div class="img pic">
 									<a href="###" onclick="showGoodsDetails(${goods.id})"><img
-										src="${ pageContext.request.contextPath}${goods.image}"
+										src="..${goods.image}"
 										alt="${goods.title }" title="${goods.title }" /> </a>
 								</div>
 								<div class="describe">

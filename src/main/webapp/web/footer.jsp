@@ -60,16 +60,9 @@
 					src="../images/footer/sinablog.png" alt="" /></li>
 			</ul>
 		</div>
-		<div class="service">
-			<p>商城客户端</p>
-			<img src="../images/footer/ios.png" class="lf"> <img
-				src="../images/footer/android.png" alt="" class="lf" />
-		</div>
-		<div class="download">
-			<img src="../images/footer/erweima.png">
-		</div>
+		
 		<!-- 页面底部-备案号 #footer -->
-		<div class="record">&copy;2017 达内集团有限公司 版权所有 京ICP证xxxxxxxxxxx</div>
+		<div class="record">&copy;刘单风所有</div>
 	</div>
 </div>
 <!--弹出的小广告-->

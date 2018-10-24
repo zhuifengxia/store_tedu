@@ -65,7 +65,7 @@
             <c:forEach items="${cartList }" var="cart">
             <ul class="item_detail">
                 <li class="p_info">
-                    <b><img src="${pageContext.request.contextPath}${cart.goods.image }"/></b>
+                    <b><img src="..${cart.goods.image }"/></b>
 <br/><br/>
                     <span class="product_name">
                         ${cart.goods.title }

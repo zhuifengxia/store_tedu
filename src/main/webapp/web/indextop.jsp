@@ -14,7 +14,7 @@
 		<ul class="lf">
 			<c:if test="${user!=null }">
 				<li><a
-					href="${pageContext.request.contextPath }/user/profile.do">${user.username }</a><b>|</b></li>
+					href="../user/profile.do">${user.username }</a><b>|</b></li>
 			</c:if>
 			<li><a href="#favorites.html" title="我的收藏"><img class="care"
 					src="../images/header/care.png" alt="" /></a><b>|</b></li>
@@ -26,11 +26,11 @@
 
 			<c:if test="${user!=null }">
 				<li><a
-					href="${pageContext.request.contextPath }/user/logout.do">退出</a></li>
+					href="../user/logout.do">退出</a></li>
 			</c:if>
 
 			<c:if test="${user==null }">
-				<li><a href="${pageContext.request.contextPath }/user/login.do">登录</a></li>
+				<li><a href="../user/login.do">登录</a></li>
 			</c:if>
 
 		</ul>

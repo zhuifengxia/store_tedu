@@ -27,7 +27,7 @@
 		<div id="preview" class="lf">
 			<div id="mediumDiv">
 				<img id="mImg" width="460" height="360"
-					src="${pageContext.request.contextPath}${goods.image}" />
+					src="..${goods.image}" />
 			</div>
 			<div id="icon_all">
 				<ul id="icon_list">
